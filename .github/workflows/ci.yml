@@ -13,11 +13,11 @@ jobs:
           persist-credentials: false
       - name: Install and Build
         run: |
-          npm install
-          npm run build
+          yarn install
+          yarn build
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@releases/v4
+        uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
-          ACCESS_TOKEN: ${{ secrets.ACESS_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.ACESS_TOKEN }}
           BRANCH: gh-pages
-          FOLDER: build
+          FOLDER: dist
