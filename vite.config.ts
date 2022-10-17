@@ -5,8 +5,7 @@ import vue from '@vitejs/plugin-vue'
 export default defineConfig({
   plugins: [vue()],
   build: {
-    rollupOptions: {
-      "https://herzorf.github.io/github-action-demo/"
-    }
+    rollupOptions: "https://herzorf.github.io/github-action-demo/"
+
   }
 })
