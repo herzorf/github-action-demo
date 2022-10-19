@@ -1,7 +1,7 @@
 echo -e "---------docker Login--------"
 docker login --username=$1 hub.docker.com --password=$2
 echo -e "---------docker Stop--------"
-docker stop herzorf/vite-project:master
+docker stop vite-project
 echo -e "---------docker Rm--------"
 docker rm vite-project
 docker rmi herzorf/vite-project:master

@@ -23,7 +23,7 @@ const count = ref(0)
       >create-vue</a
     >, the official Vue + Vite starter
   </p>
-  <h1>测试是否会自动部署</h1>
+  <h1>看到登陆docker有报错，再试一次</h1>
   <p>
     Install
     <a href="https://github.com/johnsoncodehk/volar" target="_blank">Volar</a>
