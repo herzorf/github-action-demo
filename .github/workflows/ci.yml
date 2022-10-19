@@ -10,22 +10,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2 
           with:
-          persist-credentials: false
+            persist-credentials: false
       - name: Install and Build
         run: |
           yarn install
           yarn build
       - name: Build the Docker image
-      run: |
+        run: |
         docker login --username=${{ secrets.DOCKER_USERNAME }} hub.docker.com --password=${{ secrets.DOCKER_PASSWORD }}
         docker build -t vite-project:latest .
         docker tag vite-project:latest  herzorf/vite-project:latest
         docker push herzorf/vite-project:latest
 
       - name: ssh docker login
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.TENCENT_CLOUD_IP }}
-        username: ${{ secrets.TENCENT_CLOUD_NAME }}
-        password: ${{ secrets.TENCENT_CLOUD_PASSWORD }}
-        script: cd ~ && sh deploy.sh ${{ secrets.DOCKER_USERNAME }} ${{ secrets.DOCKER_PASSWORD }}
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.TENCENT_CLOUD_IP }}
+          username: ${{ secrets.TENCENT_CLOUD_NAME }}
+          password: ${{ secrets.TENCENT_CLOUD_PASSWORD }}
+          script: cd ~ && sh deploy.sh ${{ secrets.DOCKER_USERNAME }} ${{ secrets.DOCKER_PASSWORD }}
