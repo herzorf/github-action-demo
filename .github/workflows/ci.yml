@@ -32,15 +32,16 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: laster
           labels: ${{ steps.meta.outputs.labels }}
-      # - name: Build the Docker image
-      #   run: |
-      #   docker login --username=${{ secrets.DOCKER_USERNAME }} hub.docker.com --password=${{ secrets.DOCKER_PASSWORD }}
-      #   docker build -t vite-project:latest .
-      #   docker tag vite-project:latest  herzorf/vite-project:latest
-      #   docker push herzorf/vite-project:latest
-
+      - name: Upload
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.TENCENT_CLOUD_IP }} # 公网ip
+          username: ${{ secrets.TENCENT_CLOUD_NAME }} # 用户名
+          key: ${{ secrets.TENCENT_CLOUD_PASSWORD }} # 私钥
+          source: "/dist" # 发送文件
+          target: "/data/herzorf-dev" # 目标目录
       # - name: ssh docker login
       #   uses: appleboy/ssh-action@master
       #   with:
