@@ -32,16 +32,8 @@ jobs:
         with:
           context: .
           push: true
-          tags: laster
+          tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-      # - name: Upload
-      #   uses: appleboy/scp-action@master
-      #   with:
-      #     host: ${{ secrets.TENCENT_CLOUD_IP }} # 公网ip
-      #     username: ${{ secrets.TENCENT_CLOUD_NAME }} # 用户名
-      #     key: ${{ secrets.TENCENT_CLOUD_PASSWORD }} # 私钥
-      #     source: "/dist" # 发送文件
-      #     target: "/data/herzorf-dev" # 目标目录
       - name: ssh docker login
         uses: appleboy/ssh-action@master
         with:
