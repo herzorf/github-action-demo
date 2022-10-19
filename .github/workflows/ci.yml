@@ -8,16 +8,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2 # If you're using actions/checkout@v2 you must set persist-credentials to false in most cases for the deployment to work correctly.
-        with:
+        uses: actions/checkout@v2 
+          with:
           persist-credentials: false
       - name: Install and Build
         run: |
           yarn install
           yarn build
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@releases/v3
-        with:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: dist
+      - name: Build the Docker image
+      run: |
+        docker login --username=${{ secrets.DOCKER_USERNAME }} hub.docker.com --password=${{ secrets.DOCKER_PASSWORD }}
+        docker build -t vite-project:latest .
+        docker tag vite-project:latest  herzorf/vite-project:latest
+        docker push herzorf/vite-project:latest
+
+      - name: ssh docker login
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.TENCENT_CLOUD_IP }}
+        username: ${{ secrets.TENCENT_CLOUD_NAME }}
+        password: ${{ secrets.TENCENT_CLOUD_PASSWORD }}
+        script: cd ~ && sh deploy.sh ${{ secrets.DOCKER_USERNAME }} ${{ secrets.DOCKER_PASSWORD }}
