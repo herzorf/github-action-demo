@@ -7,7 +7,7 @@ const count = ref(0)
 </script>
 
 <template>
-  <h1>2023陈倩倩暴瘦</h1>
+  <h1>github action + docker + 腾讯云实现自动化部署</h1>
 </template>
 
 <style scoped>
